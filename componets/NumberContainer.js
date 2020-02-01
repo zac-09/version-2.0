@@ -11,18 +11,18 @@ const NumberContainer = props => {
 };
 
 const styles = StyleSheet.create({
-    conatiner:{
-        borderWidth:2,
-        borderColor:Colors.accent,
-        padding:10,
-        borderRadius:10,
-        marginVertical:10,
-        alignItems:'center',
-        justifyContent:'center'
+    conatiner: {
+        borderWidth: 2,
+        borderColor: Colors.accent,
+        padding: 10,
+        borderRadius: 10,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    number:{
-        color:Colors.accent,
-        fontSize:22
+    number: {
+        color: Colors.accent,
+        fontSize: 22
     }
 });
 

@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert, ScrollView, ColorPropType } from 'react-native';
 import NumberContainer from '../componets/NumberContainer';
 import Card from '../componets/Card';
 import MainButton from '../componets/MainButton';
 import { Ionicons } from '@expo/vector-icons';
 import BodyText from '../componets/BodyText';
+import Colors from '../constants/colors';
+import RoundedButton from '../componets/RoundedButton';
+
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -62,18 +65,18 @@ const GameScreen = props => {
             <Text>Opponet's guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <MainButton onPress={nextGuessHandler.bind(this, 'lower')} >
-                    <Ionicons name="md-remove" size={24} color="white" />
-                </MainButton>
-                <MainButton onPress={nextGuessHandler.bind(this, 'greater')} >
-                    <Ionicons name="md-add" size={24} color="white" />
-                </MainButton>
+                <RoundedButton style={styles.button} onPress={nextGuessHandler.bind(this, 'lower')} >
+                    <Ionicons name="ios-arrow-round-down" size={45} color={Colors.primary} iconStyle={{ alignContent: 'center', }} />
+                </RoundedButton>
+                <RoundedButton onPress={nextGuessHandler.bind(this, 'greater')} >
+                    <Ionicons name="ios-arrow-round-up" size={45} color={Colors.accent} iconStyle={{ alignContent: 'center', }} />
+                </RoundedButton>
             </Card>
             <View style={styles.listItems}>
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                {pastGuesses.map((guess,index) => renderList(guess,pastGuesses.length - index))}
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    {pastGuesses.map((guess, index) => renderList(guess, pastGuesses.length - index))}
 
-            </ScrollView>
+                </ScrollView>
             </View>
         </View>
     );
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 10,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -94,26 +97,31 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         padding: 10,
         maxWidth: '80%',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        height: 100
     },
-    list:{
-        borderColor:'#ccc',
-        padding:15,
-        marginVertical:10,
-        backgroundColor:"white",
-        borderWidth:1,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        width:'60%'
+    list: {
+        borderColor: '#ccc',
+        padding: 15,
+        marginVertical: 10,
+        backgroundColor: Colors.color_grey,
+        borderWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '60%',
+        color: Colors.accent
     },
-    listItems:{
-        width:'80%',
-        flex:1
+    listItems: {
+        width: '80%',
+        flex: 1
     },
-    scrollView:{
-        alignItems:'center',
-        justifyContent:'flex-end',
-        flexGrow:1
+    scrollView: {
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexGrow: 1
+    },
+    button: {
+        backgroundColor: Colors.accent
     }
 });
 

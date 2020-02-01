@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, TouchableWithoutFeedback, Keyboard,Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import Card from '../componets/Card';
 import Input from '../componets/Input';
 import NumberContainer from '../componets/NumberContainer';
@@ -7,6 +7,8 @@ import Colors from '../constants/colors';
 import BodyText from '../componets/BodyText';
 import TitleText from '../componets/TitleText';
 import MainButton from '../componets/MainButton';
+import RoundedButton from '../componets/RoundedButton';
+
 
 
 const StartGameScreen = props => {
@@ -22,8 +24,8 @@ const StartGameScreen = props => {
     };
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue);
-        if ( isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-            Alert.alert('Invalid number','Number has to be between 1 and 99',[{text:'okay',style:'destructive',onPress:resetInputHandler}]);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert('Invalid number', 'Number has to be between 1 and 99', [{ text: 'okay', style: 'destructive', onPress: resetInputHandler }]);
             return;
         }
         setConfirmed(true);
@@ -33,18 +35,26 @@ const StartGameScreen = props => {
     };
     let confirmedOutput;
 
-    if (confimed){
-    // my button style confirmedOutput = <View style={styles.outputText}><Text style={styles.outputText}>chosen Number: {selecetedNumber} </Text></View>
-    confirmedOutput= (
-    <Card style={styles.summaryConatainer}>
-            <BodyText> you selected:</BodyText>
-    <NumberContainer> {selecetedNumber} </NumberContainer>  
-    <MainButton  onPress={()=> props.onStartGame(selecetedNumber)}>
-            START GAME 
+    if (confimed) {
+        confirmedOutput = (
+            <View style={styles.outputText}>
+                <Text style={styles.outputText}>chosen Number: <Text style={{ color: Colors.primary }}>{selecetedNumber} </Text>
+                </Text>
+                <MainButton style={styles.start} onPress={() => props.onStartGame(selecetedNumber)}>
+                    START GAME
         </MainButton>
+            </View>);
 
-    </Card>
-    );
+        // confirmedOutput= (
+        // <Card style={styles.summaryConatainer}>
+        //         <BodyText> you selected:</BodyText>
+        // <NumberContainer> {selecetedNumber} </NumberContainer>  
+        // <MainButton  onPress={()=> props.onStartGame(selecetedNumber)}>
+        //         START GAME 
+        //     </MainButton>
+
+        // </Card>
+        // );
     }
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -63,11 +73,11 @@ const StartGameScreen = props => {
                         value={enteredValue}
                     />
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}><Button title="reset" color={Colors.accent} onPress={resetInputHandler} /></View>
-                        <View style={styles.button}><Button title="confrim" color={Colors.primary} onPress={confirmInputHandler} /></View>
+                        <View style={styles.button}><MainButton style={styles.MainButton} textStyle={{ color: Colors.primary }} onPress={resetInputHandler} >reset</MainButton></View>
+                        <View style={styles.button}><MainButton style={styles.MainButton2} onPress={confirmInputHandler} > confrim</MainButton></View>
                     </View>
                 </Card>
-                    {confirmedOutput}
+                {confirmedOutput}
             </View>
         </TouchableWithoutFeedback>
     );
@@ -83,7 +93,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginVertical: 10,
-        fontFamily:'open-sans-bold'
+        fontFamily: 'open-sans-bold'
 
     },
     inputConatiner: {
@@ -105,19 +115,35 @@ const styles = StyleSheet.create({
         width: 50,
         textAlign: 'center'
     },
-    outputText:{
-        marginTop:20,
-        color:Colors.accent,
-        fontSize:20,
-        padding:10,
-        textTransform:'uppercase',
+    outputText: {
+        marginTop: 30,
+        color: Colors.accent,
+        fontSize: 20,
+        padding: 10,
+        textTransform: 'uppercase',
+        fontFamily: 'lato-bold'
 
     },
-    summaryConatainer:{
-        marginTop:20,
-        alignItems:'center',
+    summaryConatainer: {
+        marginTop: 20,
+        alignItems: 'center',
 
     },
+    MainButton: {
+        padding: 10,
+        paddingHorizontal: 5,
+        paddingVertical: 15,
+        backgroundColor: Colors.accent
+    },
+    MainButton2: {
+        padding: 10,
+        paddingHorizontal: 5,
+        paddingVertical: 15,
+        backgroundColor: Colors.primary
+    },
+    start: {
+        marginTop: 10
+    }
 });
 
 export default StartGameScreen;
